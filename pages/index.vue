@@ -2,13 +2,17 @@
   <div class="column">
     <div class="columns">
       <div class="column">
-        <app-switch v-model="filters.movie" checked>Movie</app-switch>
+        <app-switch v-model="filters.movie" :checked="filters.movie">Movie</app-switch>
       </div>
       <div class="column has-text-centered">
-        <app-switch v-model="filters.music" checked>Music</app-switch>
+        <app-switch v-model="filters.music" :checked="filters.music">Music</app-switch>
       </div>
       <div class="column">
-        <app-switch class="is-pulled-right" v-model="filters.tvSeries" checked>TV Series</app-switch>
+        <app-switch
+          class="is-pulled-right"
+          :checked="filters.tvSeries"
+          v-model="filters.tvSeries"
+        >TV Series</app-switch>
       </div>
     </div>
 

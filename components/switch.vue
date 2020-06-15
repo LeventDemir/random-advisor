@@ -1,13 +1,6 @@
 <template>
   <label class="switch">
-    <input
-      :class="classes"
-      type="checkbox"
-      :checked="checked"
-      :name="name"
-      :disabled="disabled"
-      v-model="value"
-    />
+    <input type="checkbox" :checked="checked" v-model="value" />
     <span>
       <slot></slot>
     </span>
@@ -17,10 +10,10 @@
 <script>
 export default {
   props: {
-    disabled: Boolean,
-    classes: String,
-    checked: Boolean,
-    name: String
+    checked: {
+      type: Boolean,
+      required: true
+    }
   },
   data() {
     return {
