@@ -4,7 +4,7 @@
       <div class="column">
         <app-switch v-model="filters.movie" :checked="filters.movie">Movie</app-switch>
       </div>
-      <div class="column has-text-centered">
+      <div id="middle-switch" class="column has-text-centered">
         <app-switch v-model="filters.music" :checked="filters.music">Music</app-switch>
       </div>
       <div class="column">

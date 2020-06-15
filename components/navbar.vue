@@ -1,15 +1,10 @@
 <template>
   <nav class="navbar container" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item">
+      <router-link :to="{ name: 'index' }" tag="a" class="navbar-item">
         <img src="/favicon.ico" />
-        <router-link
-          :to="{ name: 'index' }"
-          style="margin-left: 10px"
-          class="is-size-4 has-text-link"
-          tag="h4"
-        >Random Advisor</router-link>
-      </a>
+        <span style="margin-left: 10px" class="is-size-4 has-text-link" tag="h4">Random Advisor</span>
+      </router-link>
 
       <a
         role="button"

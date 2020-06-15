@@ -34,6 +34,13 @@ export default {
     '@fortawesome/fontawesome-free/css/all.css'
   ],
   /*
+  ** page tansition
+  */
+  transition: {
+    name: 'page',
+    mode: 'out-in'
+  },
+  /*
   ** Plugins to load before mounting the App
   */
   plugins: [

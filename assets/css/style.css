@@ -1,0 +1,21 @@
+.page-leave-to {
+    opacity: 0;
+    transition: .3s;
+}
+
+.page-enter-active {
+    transition: opacity .5s;
+}
+
+.page-enter {
+    opacity: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .is-pulled-right {
+        float: left !important;
+    }
+    #middle-switch.has-text-centered {
+        text-align: left !important;
+    }
+}
