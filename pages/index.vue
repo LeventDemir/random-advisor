@@ -8,7 +8,7 @@
         <app-switch v-model="filters.music" checked>Music</app-switch>
       </div>
       <div class="column">
-        <app-switch class="is-pulled-right" v-model="filters.tvSeries" checked>Tv Series</app-switch>
+        <app-switch class="is-pulled-right" v-model="filters.tvSeries" checked>TV Series</app-switch>
       </div>
     </div>
 

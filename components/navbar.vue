@@ -2,7 +2,7 @@
   <nav class="navbar container" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item">
-        <h3 class="is-size-3 has-text-link">Random Advisor</h3>
+        <router-link :to="{ name: 'index' }" class="is-size-3 has-text-link" tag="h3">Random Advisor</router-link>
       </a>
 
       <a
@@ -20,8 +20,8 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item">Sign In</a>
-        <a class="navbar-item">Sign Up</a>
+        <router-link :to="{ name: 'sign-in' }" tag="a" class="navbar-item">Sign In</router-link>
+        <router-link :to="{ name: 'sign-up' }" tag="a" class="navbar-item">Sign Up</router-link>
       </div>
     </div>
   </nav>
