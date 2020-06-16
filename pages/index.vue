@@ -26,10 +26,13 @@
     <br />
 
     <div v-if="adviced" class="columns is-multiline is-centered">
-      <div class="column is-one-third">
+      <div v-if="filters.movie && $store.getters[`advice/getMovie`]" class="column is-one-third">
         <Card type="Movie" />
       </div>
-      <div class="column is-one-third">
+      <div
+        v-if="filters.tvSeries && $store.getters[`advice/getTVSeries`]"
+        class="column is-one-third"
+      >
         <Card type="TVSeries" />
       </div>
     </div>
@@ -58,10 +61,16 @@ export default {
   },
   methods: {
     advice() {
-      this.$store.dispatch("advice/tvSeriesAdvice");
-      this.$store
-        .dispatch("advice/movieAdvice")
-        .then(() => (this.adviced = true));
+      if (this.filters.movie) {
+        this.$store
+          .dispatch("advice/movieAdvice")
+          .then(() => (this.adviced = true));
+      }
+      if (this.filters.tvSeries) {
+        this.$store
+          .dispatch("advice/tvSeriesAdvice")
+          .then(() => (this.adviced = true));
+      }
     }
   }
 };

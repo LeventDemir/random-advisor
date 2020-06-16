@@ -1,11 +1,6 @@
-const moviedb_base_url = "https://api.themoviedb.org/3";
-const moviedb_api_key = "476c67076b8ad352fa3f0997042f266a";
-const moviedb_poster_path = 'https://image.tmdb.org/t/p/original/'
-
 const page = () => {
     return Math.floor(Math.random() * 500) + 1;
 };
-
 
 export const state = () => ({
     genres: [],
@@ -46,7 +41,7 @@ export const mutations = {
 
 export const actions = {
     movieAdvice({ getters, commit }) {
-        const discover = `${moviedb_base_url}/discover/movie?api_key=${moviedb_api_key}&page=${page()}`;
+        const discover = `${process.env.MOVIEDB_BASE_URL}/discover/movie?api_key=${process.env.MOVIEDB_API_KEY}&page=${page()}`;
 
         return this.$axios.get(discover).then(response => {
             const movie =
@@ -55,7 +50,7 @@ export const actions = {
                 ];
 
             movie.genres = [];
-            movie.poster_path = `${moviedb_poster_path}${movie.poster_path}`
+            movie.poster_path = `${process.env.MOVIEDB_POSTER_PATH}${movie.poster_path}`
 
             getters['getGenres'].map(genre => {
                 movie.genre_ids.map(movie_genre => {
@@ -67,7 +62,7 @@ export const actions = {
         });
     },
     tvSeriesAdvice({ getters, commit }) {
-        const discover = `${moviedb_base_url}/discover/tv?api_key=${moviedb_api_key}&page=${page()}`;
+        const discover = `${process.env.MOVIEDB_BASE_URL}/discover/tv?api_key=${process.env.MOVIEDB_API_KEY}&page=${page()}`;
 
         return this.$axios.get(discover).then(response => {
             const tv =
@@ -76,7 +71,7 @@ export const actions = {
                 ];
 
             tv.genres = [];
-            tv.poster_path = `${moviedb_poster_path}${tv.poster_path}`
+            tv.poster_path = `${process.env.MOVIEDB_POSTER_PATH}${tv.poster_path}`
 
             getters['getGenres'].map(genre => {
                 tv.genre_ids.map(tv_genre => {
@@ -89,7 +84,7 @@ export const actions = {
     },
     genres({ commit }) {
         return this.$axios
-            .get(`${moviedb_base_url}/genre/movie/list?api_key=${moviedb_api_key}&language=en-US`)
+            .get(`${process.env.MOVIEDB_BASE_URL}/genre/movie/list?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`)
             .then(response => commit('setGenres', response.data.genres));
     }
 }
