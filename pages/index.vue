@@ -19,24 +19,18 @@
     <br />
     <br />
 
-    <button
-      @click="advise = !advise"
-      class="button is-link is-rounded is-outlined is-fullwidth"
-    >Advise</button>
+    <button @click="advice" class="button is-link is-rounded is-outlined is-fullwidth">advice</button>
 
     <br />
     <br />
     <br />
 
-    <div v-if="advise" class="columns">
+    <div v-if="adviced" class="columns is-multiline is-centered">
       <div class="column is-one-third">
-        <Card />
+        <Card type="Movie" />
       </div>
       <div class="column is-one-third">
-        <Card />
-      </div>
-      <div class="column is-one-third">
-        <Card />
+        <Card type="TVSeries" />
       </div>
     </div>
   </div>
@@ -54,13 +48,21 @@ export default {
   },
   data() {
     return {
-      advise: false,
+      adviced: false,
       filters: {
         movie: true,
         music: true,
         tvSeries: true
       }
     };
+  },
+  methods: {
+    advice() {
+      this.$store.dispatch("advice/tvSeriesAdvice");
+      this.$store
+        .dispatch("advice/movieAdvice")
+        .then(() => (this.adviced = true));
+    }
   }
 };
 </script>

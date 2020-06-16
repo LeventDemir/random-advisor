@@ -7,6 +7,7 @@
       </router-link>
 
       <a
+        ref="burgerButton"
         role="button"
         class="navbar-burger burger"
         aria-label="menu"
@@ -21,8 +22,18 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-end">
-        <router-link :to="{ name: 'sign-in' }" tag="a" class="navbar-item">Sign In</router-link>
-        <router-link :to="{ name: 'sign-up' }" tag="a" class="navbar-item">Sign Up</router-link>
+        <router-link
+          @click.native="close"
+          :to="{ name: 'sign-in' }"
+          tag="a"
+          class="navbar-item"
+        >Sign In</router-link>
+        <router-link
+          @click.native="close"
+          :to="{ name: 'sign-up' }"
+          tag="a"
+          class="navbar-item"
+        >Sign Up</router-link>
       </div>
     </div>
   </nav>
@@ -52,6 +63,14 @@ export default {
           $target.classList.toggle("is-active");
         });
       });
+    }
+  },
+  methods: {
+    close() {
+      document
+        .getElementById("navbarBasicExample")
+        .classList.toggle("is-active");
+      this.$refs.burgerButton.classList.toggle("is-active");
     }
   }
 };
