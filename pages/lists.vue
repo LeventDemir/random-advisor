@@ -18,6 +18,7 @@ import Tabs from "@/components/tabs";
 import Card from "@/components/card";
 
 export default {
+  middleware: "auth",
   components: { Tabs, Card },
   mounted() {
     const lists = ["movie", "music", "tv-series"];

@@ -34,6 +34,38 @@ export default {
     '~/assets/css/style.css',
     '@fortawesome/fontawesome-free/css/all.css'
   ],
+  toast: {
+    position: 'top-center',
+    register: [ // Register custom toasts
+      {
+        name: 'success',
+        message: message => message,
+        options: {
+          type: 'success',
+          theme: 'outline',
+          duration: 3000
+        }
+      },
+      {
+        name: 'error',
+        message: message => message,
+        options: {
+          type: 'error',
+          theme: 'outline',
+          duration: 3000
+        }
+      },
+      {
+        name: 'warning',
+        message: message => message,
+        options: {
+          type: 'info',
+          theme: 'outline',
+          duration: 3000
+        }
+      },
+    ]
+  },
   /*
   ** page tansition
   */
@@ -46,6 +78,16 @@ export default {
   */
   plugins: [
   ],
+  /*
+  ** serverMiddleware 
+  */
+  serverMiddleware: [
+    {
+      path: 'api',
+      handler: '~/server/index.js'
+    }
+  ],
+
   /*
   ** Nuxt.js dev-modules
   */
@@ -61,12 +103,15 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
+    // Doc: https://www.npmjs.com/package/@nuxtjs/toast
+    '@nuxtjs/toast'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: process.env.baseURL || 'http://localhost:3000/api'
   },
   /*
   ** Build configuration

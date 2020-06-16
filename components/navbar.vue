@@ -23,17 +23,30 @@
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-end">
         <router-link
+          v-if="!$store.getters['user/getAuth']"
           @click.native="close"
           :to="{ name: 'sign-in' }"
           tag="a"
           class="navbar-item"
         >Sign In</router-link>
+
         <router-link
+          v-if="!$store.getters['user/getAuth']"
           @click.native="close"
           :to="{ name: 'sign-up' }"
           tag="a"
           class="navbar-item"
         >Sign Up</router-link>
+
+        <router-link
+          v-if="$store.getters['user/getAuth']"
+          @click.native="close"
+          :to="{ name: 'lists' }"
+          tag="a"
+          class="navbar-item"
+        >Lists</router-link>
+
+        <a v-if="$store.getters['user/getAuth']" @click="signOut" class="navbar-item">Sign Out</a>
       </div>
     </div>
   </nav>
@@ -71,6 +84,10 @@ export default {
         .getElementById("navbarBasicExample")
         .classList.toggle("is-active");
       this.$refs.burgerButton.classList.toggle("is-active");
+    },
+    signOut() {
+      this.$store.dispatch("user/signOut");
+      this.close();
     }
   }
 };
