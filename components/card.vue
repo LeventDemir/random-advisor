@@ -1,5 +1,5 @@
 <template>
-  <div @click="collapsible = !collapsible" class="card">
+  <div class="card">
     <div class="card-image">
       <figure class="image is-4by3">
         <img :src="data.photo" />
@@ -21,7 +21,12 @@
           </span>
         </p>
 
-        <p :class="collapsible ? 'text-collapsible-active' : 'text-collapsible'">{{ data.overview }}</p>
+        <p :class="collapsible ? 'text-collapsible-active' : 'text-collapsible'">
+          <span @click="collapsible = !collapsible" class="icon has-text-link is-pulled-right">
+            <i class="fas" :class="collapsible ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+          </span>
+          {{ data.overview }}
+        </p>
 
         <p>
           <span class="icon has-text-warning">
@@ -36,8 +41,8 @@
     <footer class="card-footer">
       <a
         v-if="$route.name == 'index'"
-        @click="$store.dispatch('mmtv/addToList', { type, ...data})"
-        class="card-footer-item"
+        @click="$store.dispatch('mmtv/create', { type, ...data})"
+        class="card-footer-item has-text-success"
       >Add to {{ type == 'tv-series' ? 'TV Series': type }} list</a>
 
       <a

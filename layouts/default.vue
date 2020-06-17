@@ -1,23 +1,21 @@
 <template>
-  <main>
-    <header>
-      <Navbar />
-    </header>
+  <div>
+    <Navbar />
 
     <br />
     <br />
     <br />
 
-    <main class="container">
+    <div class="container">
       <nuxt />
-    </main>
+    </div>
 
     <br />
     <br />
     <br />
 
     <Footer />
-  </main>
+  </div>
 </template>
 
 

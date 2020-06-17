@@ -9,6 +9,7 @@
       </div>
       <div class="column">
         <app-switch
+          id="right-switch"
           class="is-pulled-right"
           :checked="filters.tvSeries"
           v-model="filters.tvSeries"

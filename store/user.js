@@ -38,20 +38,18 @@ export const actions = {
                     commit('setAuth', true)
 
                     // send success notification
-                    this.$toast.global.success("Registration successfully completed")
+                    this.$toast.global.success("Signed Up")
 
                     // redicect to home page
                     this.$router.push({ name: 'index' })
                 } else if (response.data.exist) {
                     // send error notification
                     this.$toast.global.warning("This user is already exist")
-                } else {
                     // send error notification
-                    this.$toast.global.error("Something went wrong")
-                }
+                } else this.$toast.global.error("Something went wrong")
             })
     },
-    signIn({ commit }, user) {
+    signIn({ commit, dispatch }, user) {
         this.$axios.post('/user/sign-in', user).then(response => {
             if (response.data.token) {
                 // set token to cookies
@@ -61,15 +59,15 @@ export const actions = {
                 // set auth to Vuex 
                 commit('setAuth', true)
 
+                dispatch('mmtv/mmtvs', null, { root: true })
+
                 // send success notification
-                this.$toast.global.success("Logged in")
+                this.$toast.global.success("Signed In")
 
                 // redicect to home page
                 this.$router.push({ name: 'index' })
-            } else {
                 // send error notification
-                this.$toast.global.error("Username or password incorrect")
-            }
+            } else this.$toast.global.error("Username or password incorrect")
         })
     },
     signOut({ getters, commit }) {
@@ -83,14 +81,16 @@ export const actions = {
                     // delete auth from vuex
                     commit('setAuth', null)
 
+                    commit('mmtv/setMovies', null, { root: true })
+                    commit('mmtv/setMusics', null, { root: true })
+                    commit('mmtv/setTVSeries', null, { root: true })
+
                     // send success notification
                     this.$toast.global.success("Logged out")
 
                     // redicect to home page
                     this.$router.push({ name: 'index' })
-                } else {
-                    this.$toast.global.error("Something went wrong")
-                }
+                } else this.$toast.global.error("Something went wrong")
             })
     },
     isAuth({ getters, commit }) {

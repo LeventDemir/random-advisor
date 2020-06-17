@@ -12,6 +12,8 @@ router.post('/create', auth, (req, res) => {
     new mmtv(data).save(err => {
         if (!err) res.json({ success: true })
 
+        else if (err.code == 11000) res.json({ exist: true })
+
         else res.json({ success: false })
     })
 })

@@ -29,14 +29,20 @@ export const mutations = {
 }
 
 export const actions = {
-    addToList({ rootGetters, dispatch }, data) {
-        this.$axios.post('/mmtv/create', { token: rootGetters['user/getToken'], ...data }).then(response => {
-            if (response.data.success) {
-                this.$toast.global.success("Item successfully added to list")
+    create({ rootGetters, dispatch }, data) {
+        if (!rootGetters['user/getAuth']) this.$toast.global.error("Sign in so you can do this")
 
-                dispatch('mmtvs')
-            } else this.$toast.global.error("Something went wrong")
-        })
+        else {
+            this.$axios.post('/mmtv/create', { token: rootGetters['user/getToken'], ...data }).then(response => {
+                if (response.data.success) {
+                    this.$toast.global.success("Item successfully added to list")
+
+                    dispatch('mmtvs')
+                } else if (response.data.exist) this.$toast.global.warning("This user is already exist")
+                // send error notification
+                else this.$toast.global.error("Something went wrong")
+            })
+        }
     },
     delete({ rootGetters, dispatch }, id) {
         this.$axios.post('/mmtv/delete', { token: rootGetters['user/getToken'], id })
