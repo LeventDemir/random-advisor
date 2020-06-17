@@ -17,7 +17,7 @@ const mmtv = new mongoose.Schema({
     photo: {
         type: String,
         required: true,
-        default: 'https://bulma.io/images/placeholders/1280x960.png'
+        default: '/no-photo.png'
     },
     name: {
         type: String,

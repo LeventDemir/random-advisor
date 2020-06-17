@@ -1,3 +1,6 @@
+const moviedb_base_url = 'https://api.themoviedb.org/3'
+const moviedb_poster_path = 'https://image.tmdb.org/t/p/original/'
+
 const page = () => {
     return Math.floor(Math.random() * 500) + 1;
 };
@@ -41,7 +44,7 @@ export const mutations = {
 
 export const actions = {
     movieAdvice({ getters, commit }) {
-        const discover = `${process.env.MOVIEDB_BASE_URL}/discover/movie?api_key=${process.env.MOVIEDB_API_KEY}&page=${page()}`;
+        const discover = `${moviedb_base_url}/discover/movie?api_key=${process.env.MOVIEDB_API_KEY}&page=${page()}`;
 
         return this.$axios.get(discover).then(response => {
             const movie =
@@ -50,7 +53,7 @@ export const actions = {
                 ];
 
             movie.genres = [];
-            movie.photo = movie.poster_path ? `${process.env.MOVIEDB_POSTER_PATH}${movie.poster_path}` : 'https://bulma.io/images/placeholders/1280x960.png'
+            movie.photo = movie.poster_path ? `${moviedb_poster_path}${movie.poster_path}` : '/no-photo.png'
             movie.name = movie.title
             movie.original_name = movie.original_title
 
@@ -64,7 +67,7 @@ export const actions = {
         });
     },
     tvSeriesAdvice({ getters, commit }) {
-        const discover = `${process.env.MOVIEDB_BASE_URL}/discover/tv?api_key=${process.env.MOVIEDB_API_KEY}&page=${page()}`;
+        const discover = `${moviedb_base_url}/discover/tv?api_key=${process.env.MOVIEDB_API_KEY}&page=${page()}`;
 
         return this.$axios.get(discover).then(response => {
             const tv =
@@ -73,7 +76,7 @@ export const actions = {
                 ];
 
             tv.genres = [];
-            tv.photo = tv.poster_path ? `${process.env.MOVIEDB_POSTER_PATH}${tv.poster_path}` : 'https://bulma.io/images/placeholders/1280x960.png'
+            tv.photo = tv.poster_path ? `${moviedb_poster_path}${tv.poster_path}` : '/no-photo.png'
             tv.release_date = tv.first_air_date
 
             getters['getGenres'].map(genre => {
@@ -87,7 +90,7 @@ export const actions = {
     },
     genres({ commit }) {
         return this.$axios
-            .get(`${process.env.MOVIEDB_BASE_URL}/genre/movie/list?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`)
+            .get(`${moviedb_base_url}/genre/movie/list?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`)
             .then(response => commit('setGenres', response.data.genres));
     }
 }
