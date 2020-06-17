@@ -26,14 +26,14 @@
     <br />
 
     <div v-if="adviced" class="columns is-multiline is-centered">
-      <div v-if="filters.movie && $store.getters[`advice/getMovie`]" class="column is-one-third">
-        <Card type="Movie" />
+      <div v-if="filters.movie && $store.getters['advice/getMovie']" class="column is-one-third">
+        <Card type="movie" :data="$store.getters['advice/getMovie']" />
       </div>
       <div
-        v-if="filters.tvSeries && $store.getters[`advice/getTVSeries`]"
+        v-if="filters.tvSeries && $store.getters['advice/getTVSeries']"
         class="column is-one-third"
       >
-        <Card type="TVSeries" />
+        <Card type="tv-series" :data="$store.getters['advice/getTVSeries']" />
       </div>
     </div>
   </div>

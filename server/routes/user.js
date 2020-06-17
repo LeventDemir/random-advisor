@@ -16,7 +16,7 @@ router.post('/sign-up', (req, res) => {
 
     data._id = _id
     data.password = hash
-    data.token = jwt.sign({ author: _id }, 'SeCrEtKeY');
+    data.token = jwt.sign({ user: _id }, 'SeCrEtKeY');
     data.login = true
 
     new User(data).save(err => {
@@ -38,7 +38,7 @@ router.post('/sign-in', (req, res) => {
                 if (user.login) res.json({ token: user.token })
 
                 else {
-                    user.token = jwt.sign({ author: user._id }, 'SeCrEtKeY');
+                    user.token = jwt.sign({ user: user._id }, 'SeCrEtKeY');
                     user.login = true
 
                     user.save(err => {

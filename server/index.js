@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const app = express()
 
 const user = require('./routes/user')
+const mmtv = require('./routes/mmtv')
 
 
 mongoose.connect(process.env.DB || 'mongodb://localhost/random-advicer', {
@@ -19,6 +20,7 @@ mongoose.connection.on("error", err => console.log({ mongooseError: err }));
 
 app.use(bodyParser.json())
 app.use('/user', user)
+app.use('/mmtv', mmtv)
 
 
 module.exports = app

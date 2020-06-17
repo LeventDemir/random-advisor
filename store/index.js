@@ -13,16 +13,15 @@ export const actions = {
                     const token = await cookies[tokenIndex].substr(6)
                     // set token to vuex
                     await commit('user/setToken', token)
-
-                    await dispatch('user/isAuth')
                 }
             } else {
                 const token = await req.headers.cookie.substr(6)
                 // set token to vuex
                 await commit('user/setToken', token)
-
-                await dispatch('user/isAuth')
             }
         }
+
+        await dispatch('user/isAuth')
+        await dispatch('mmtv/mmtvs')
     }
 }

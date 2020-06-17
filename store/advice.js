@@ -50,7 +50,9 @@ export const actions = {
                 ];
 
             movie.genres = [];
-            movie.poster_path = `${process.env.MOVIEDB_POSTER_PATH}${movie.poster_path}`
+            movie.photo = movie.poster_path ? `${process.env.MOVIEDB_POSTER_PATH}${movie.poster_path}` : 'https://bulma.io/images/placeholders/1280x960.png'
+            movie.name = movie.title
+            movie.original_name = movie.original_title
 
             getters['getGenres'].map(genre => {
                 movie.genre_ids.map(movie_genre => {
@@ -71,7 +73,8 @@ export const actions = {
                 ];
 
             tv.genres = [];
-            tv.poster_path = `${process.env.MOVIEDB_POSTER_PATH}${tv.poster_path}`
+            tv.photo = tv.poster_path ? `${process.env.MOVIEDB_POSTER_PATH}${tv.poster_path}` : 'https://bulma.io/images/placeholders/1280x960.png'
+            tv.release_date = tv.first_air_date
 
             getters['getGenres'].map(genre => {
                 tv.genre_ids.map(tv_genre => {

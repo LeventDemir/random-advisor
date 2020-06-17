@@ -1,4 +1,4 @@
-# random-advisor
+# random-advicer
 
 > My neat Nuxt.js project
 
