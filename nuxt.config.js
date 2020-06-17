@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 export default {
   mode: 'universal',
   /*
@@ -101,8 +99,6 @@ export default {
     '@nuxtjs/bulma',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
     // Doc: https://www.npmjs.com/package/@nuxtjs/toast
     '@nuxtjs/toast'
   ],

@@ -1,5 +1,6 @@
 const moviedb_base_url = 'https://api.themoviedb.org/3'
 const moviedb_poster_path = 'https://image.tmdb.org/t/p/original/'
+const moviedb_api_key = '476c67076b8ad352fa3f0997042f266a'
 
 const page = () => {
     return Math.floor(Math.random() * 500) + 1;
@@ -44,7 +45,7 @@ export const mutations = {
 
 export const actions = {
     movieAdvice({ getters, commit }) {
-        const discover = `${moviedb_base_url}/discover/movie?api_key=${process.env.MOVIEDB_API_KEY}&page=${page()}`;
+        const discover = `${moviedb_base_url}/discover/movie?api_key=${moviedb_api_key}&page=${page()}`;
 
         return this.$axios.get(discover).then(response => {
             const movie =
@@ -67,7 +68,7 @@ export const actions = {
         });
     },
     tvSeriesAdvice({ getters, commit }) {
-        const discover = `${moviedb_base_url}/discover/tv?api_key=${process.env.MOVIEDB_API_KEY}&page=${page()}`;
+        const discover = `${moviedb_base_url}/discover/tv?api_key=${moviedb_api_key}&page=${page()}`;
 
         return this.$axios.get(discover).then(response => {
             const tv =
@@ -90,7 +91,7 @@ export const actions = {
     },
     genres({ commit }) {
         return this.$axios
-            .get(`${moviedb_base_url}/genre/movie/list?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`)
+            .get(`${moviedb_base_url}/genre/movie/list?api_key=${moviedb_api_key}&language=en-US`)
             .then(response => commit('setGenres', response.data.genres));
     }
 }
