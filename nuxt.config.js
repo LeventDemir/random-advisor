@@ -100,7 +100,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://www.npmjs.com/package/@nuxtjs/toast
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
   ],
   /*
   ** Axios module configuration
