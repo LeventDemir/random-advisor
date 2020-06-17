@@ -82,7 +82,7 @@ export const actions = {
                     commit('setAuth', null)
 
                     commit('mmtv/setMovies', null, { root: true })
-                    commit('mmtv/setMusics', null, { root: true })
+                    commit('mmtv/setBooks', null, { root: true })
                     commit('mmtv/setTVSeries', null, { root: true })
 
                     // send success notification

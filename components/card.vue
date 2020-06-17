@@ -9,7 +9,13 @@
       <div class="media">
         <div class="media-content">
           <p class="title is-4">{{ data.name }}</p>
-          <p class="subtitle is-6 has-text-grey">{{ data.original_name }}</p>
+          <p v-if="type == 'book'" class="subtitle is-6 has-text-grey">
+            <span v-for="(author, index) in data.authors" :key="author">
+              {{ author }}
+              <span v-if="data.authors.length -1 != index" class="has-text-grey">,&nbsp;</span>
+            </span>
+          </p>
+          <p v-else class="subtitle is-6 has-text-grey">{{ data.subtitle }}</p>
         </div>
       </div>
 
@@ -29,12 +35,14 @@
         </p>
 
         <p>
-          <span class="icon has-text-warning">
+          <span v-if="type != 'book'" class="icon has-text-warning">
             <i class="far fa-star"></i>
           </span>
-          <span class="has-text-grey">{{ data.vote_average }}</span>
+          <span v-if="type != 'book'" class="has-text-grey">{{ data.vote_average }}</span>
 
           <time class="is-size-6 has-text-grey is-pulled-right">{{ data.release_date }}</time>
+
+          <br v-if="type == 'book'" />
         </p>
       </div>
     </div>

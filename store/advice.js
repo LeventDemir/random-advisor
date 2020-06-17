@@ -1,3 +1,4 @@
+const randomWords = require('random-words');
 const moviedb_base_url = 'https://api.themoviedb.org/3'
 const moviedb_poster_path = 'https://image.tmdb.org/t/p/original/'
 const moviedb_api_key = '476c67076b8ad352fa3f0997042f266a'
@@ -9,7 +10,7 @@ const page = () => {
 export const state = () => ({
     genres: [],
     movie: null,
-    music: null,
+    book: null,
     tvSeries: null
 })
 
@@ -20,8 +21,8 @@ export const getters = {
     getMovie(state) {
         return state.movie
     },
-    getMusic(state) {
-        return state.music
+    getBook(state) {
+        return state.book
     },
     getTVSeries(state) {
         return state.tvSeries
@@ -35,8 +36,8 @@ export const mutations = {
     setMovie(state, movie) {
         state.movie = movie
     },
-    setMusic(state, music) {
-        state.music = music
+    setBook(state, book) {
+        state.book = book
     },
     setTVSeries(state, tvSeries) {
         state.tvSeries = tvSeries
@@ -88,6 +89,24 @@ export const actions = {
 
             commit('setTVSeries', tv)
         });
+    },
+    bookAdvice({ commit }) {
+        this.$axios.get(`https://www.googleapis.com/books/v1/volumes?q=${randomWords()}`)
+            .then(response => {
+                const book = {}
+                const randomBook =
+                    response.data.items[
+                    Math.floor(Math.random() * response.data.items.length)
+                    ];
+
+                book.id = randomBook.id
+                book.photo = randomBook.volumeInfo.imageLinks.thumbnail
+                book.name = randomBook.volumeInfo.title
+                book.authors = randomBook.volumeInfo.authors
+                book.genres = randomBook.volumeInfo.categories
+                book.overview = randomBook.volumeInfo.description
+                book.release_date = randomBook.volumeInfo.publishedDate
+            })
     },
     genres({ commit }) {
         return this.$axios

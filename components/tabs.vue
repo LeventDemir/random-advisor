@@ -14,15 +14,15 @@
         </a>
       </router-link>
       <router-link
-        :to="{ name: 'lists', query: { list: 'music' } }"
-        :class="{  'is-active': $route.query.list == 'music' }"
+        :to="{ name: 'lists', query: { list: 'book' } }"
+        :class="{  'is-active': $route.query.list == 'book' }"
         tag="li"
       >
         <a>
           <span class="icon is-small">
-            <i class="fas fa-headphones-alt" aria-hidden="true"></i>
+            <i class="fas fa-book" aria-hidden="true"></i>
           </span>
-          <span>Music</span>
+          <span>Book</span>
         </a>
       </router-link>
       <router-link

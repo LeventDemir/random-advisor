@@ -1,6 +1,6 @@
 export const state = () => ({
     movies: [],
-    musics: [],
+    Books: [],
     tvSeries: []
 })
 
@@ -8,8 +8,8 @@ export const getters = {
     getMovies(state) {
         return state.movies
     },
-    getMusics(state) {
-        return state.musics
+    getBooks(state) {
+        return state.books
     },
     getTVSeries(state) {
         return state.tvSeries
@@ -20,8 +20,8 @@ export const mutations = {
     setMovies(state, movies) {
         state.movies = movies
     },
-    setMusics(state, musics) {
-        state.musics = musics
+    setBooks(state, books) {
+        state.books = books
     },
     setTVSeries(state, tvSeries) {
         state.tvSeries = tvSeries
@@ -34,6 +34,8 @@ export const actions = {
 
         else {
             this.$axios.post('/mmtv/create', { token: rootGetters['user/getToken'], ...data }).then(response => {
+
+                console.info(data)
                 if (response.data.success) {
                     this.$toast.global.success("Item successfully added to list")
 
@@ -59,14 +61,17 @@ export const actions = {
             .then(response => {
                 if (response.data.mmtvs) {
                     const movies = []
+                    const books = []
                     const tvSeries = []
 
                     response.data.mmtvs.map(mmtv => {
                         if (mmtv.type == 'movie') movies.push(mmtv)
+                        if (mmtv.type == 'book') books.push(mmtv)
                         if (mmtv.type == 'tv-series') tvSeries.push(mmtv)
                     })
 
                     commit('setMovies', movies)
+                    commit('setBooks', books)
                     commit('setTVSeries', tvSeries)
                 }
             })

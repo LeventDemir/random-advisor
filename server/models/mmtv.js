@@ -26,6 +26,9 @@ const mmtv = new mongoose.Schema({
     original_name: {
         type: String
     },
+    author: {
+        type: String
+    },
     genres: {
         type: Array
     },
