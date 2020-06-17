@@ -106,6 +106,8 @@ export const actions = {
                 book.genres = randomBook.volumeInfo.categories
                 book.overview = randomBook.volumeInfo.description
                 book.release_date = randomBook.volumeInfo.publishedDate
+
+                commit('setBook', book)
             })
     },
     genres({ commit }) {

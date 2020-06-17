@@ -34,8 +34,6 @@ export const actions = {
 
         else {
             this.$axios.post('/mmtv/create', { token: rootGetters['user/getToken'], ...data }).then(response => {
-
-                console.info(data)
                 if (response.data.success) {
                     this.$toast.global.success("Item successfully added to list")
 
