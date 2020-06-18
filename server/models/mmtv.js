@@ -26,6 +26,12 @@ const mmtv = new mongoose.Schema({
     original_name: {
         type: String
     },
+    preview: {
+        type: String
+    },
+    artist: {
+        type: String
+    },
     author: {
         type: String
     },
@@ -36,8 +42,7 @@ const mmtv = new mongoose.Schema({
         type: String
     },
     release_date: {
-        type: String,
-        required: true
+        type: String
     },
     vote_average: {
         type: String

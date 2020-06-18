@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-image">
       <figure class="image is-4by3">
-        <img :src="data.photo" />
+        <img :style="type == 'book' ? {'object-fit': 'scale-down'} : ''" :src="data.photo" />
       </figure>
     </div>
     <div class="card-content">
@@ -15,7 +15,8 @@
               <span v-if="data.authors.length -1 != index" class="has-text-grey">,&nbsp;</span>
             </span>
           </p>
-          <p v-else class="subtitle is-6 has-text-grey">{{ data.subtitle }}</p>
+          <p v-else-if="type == 'music'" class="subtitle is-6 has-text-grey">{{ data.artist }}</p>
+          <p v-else class="subtitle is-6 has-text-grey">{{ data.original_name }}</p>
         </div>
       </div>
 
@@ -27,22 +28,25 @@
           </span>
         </p>
 
-        <p :class="collapsible ? 'text-collapsible-active' : 'text-collapsible'">
+        <audio v-if="type == 'music'" controls :src="data.preview"></audio>
+
+        <p
+          v-if="type != 'music'"
+          :class="collapsible ? 'text-collapsible-active' : 'text-collapsible'"
+        >
           <span @click="collapsible = !collapsible" class="icon has-text-link is-pulled-right">
             <i class="fas" :class="collapsible ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
           </span>
           {{ data.overview }}
         </p>
 
-        <p>
-          <span v-if="type != 'book'" class="icon has-text-warning">
+        <p v-if="type != 'music'">
+          <span class="icon has-text-warning">
             <i class="far fa-star"></i>
           </span>
-          <span v-if="type != 'book'" class="has-text-grey">{{ data.vote_average }}</span>
+          <span class="has-text-grey">{{ data.vote_average }}</span>
 
           <time class="is-size-6 has-text-grey is-pulled-right">{{ data.release_date }}</time>
-
-          <br v-if="type == 'book'" />
         </p>
       </div>
     </div>

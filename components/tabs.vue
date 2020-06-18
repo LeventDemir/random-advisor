@@ -13,6 +13,20 @@
           <span>Movies</span>
         </a>
       </router-link>
+
+      <router-link
+        :to="{ name: 'lists', query: { list: 'music' } }"
+        :class="{  'is-active': $route.query.list == 'music' }"
+        tag="li"
+      >
+        <a>
+          <span class="icon is-small">
+            <i class="fas fa-headphones-alt" aria-hidden="true"></i>
+          </span>
+          <span>Music</span>
+        </a>
+      </router-link>
+
       <router-link
         :to="{ name: 'lists', query: { list: 'book' } }"
         :class="{  'is-active': $route.query.list == 'book' }"
@@ -25,6 +39,7 @@
           <span>Book</span>
         </a>
       </router-link>
+
       <router-link
         :to="{ name: 'lists', query: { list: 'tv-series' } }"
         :class="{  'is-active': $route.query.list == 'tv-series' }"

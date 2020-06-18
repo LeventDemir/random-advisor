@@ -25,7 +25,7 @@ export default {
   middleware: "auth",
   components: { Tabs, Card },
   mounted() {
-    const lists = ["movie", "book", "tv-series"];
+    const lists = ["movie", "music", "book", "tv-series"];
     const list = this.$route.query.list;
 
     if (!list || !lists.includes(list)) {
@@ -38,6 +38,8 @@ export default {
 
       return list == "movie"
         ? "Movies"
+        : list == "music"
+        ? "Musics"
         : list == "tv-series"
         ? "TVSeries"
         : "Books";

@@ -10,6 +10,7 @@ const page = () => {
 export const state = () => ({
     genres: [],
     movie: null,
+    music: null,
     book: null,
     tvSeries: null
 })
@@ -20,6 +21,9 @@ export const getters = {
     },
     getMovie(state) {
         return state.movie
+    },
+    getMusic(state) {
+        return state.music
     },
     getBook(state) {
         return state.book
@@ -35,6 +39,9 @@ export const mutations = {
     },
     setMovie(state, movie) {
         state.movie = movie
+    },
+    setMusic(state, music) {
+        state.music = music
     },
     setBook(state, book) {
         state.book = book
@@ -104,11 +111,38 @@ export const actions = {
                 book.name = randomBook.volumeInfo.title
                 book.authors = randomBook.volumeInfo.authors
                 book.genres = randomBook.volumeInfo.categories
-                book.overview = randomBook.volumeInfo.description
+                book.overview = randomBook.volumeInfo.description || 'there is no description of this book'
                 book.release_date = randomBook.volumeInfo.publishedDate
+                book.vote_average = randomBook.volumeInfo.averageRating
 
                 commit('setBook', book)
             })
+    },
+    musicAdvice({ commit }) {
+        this.$axios.get("https://deezerdevs-deezer.p.rapidapi.com/search", {
+            "headers": {
+                "content-type": "application/octet-stream",
+                "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+                "x-rapidapi-key": "d4a5c04d95mshfb369df99730873p1a72fajsn73b95fc2946b",
+                "useQueryString": true
+            }, "params": {
+                "q": randomWords()
+            }
+        }).then(response => {
+            const music = {}
+            const randomMusic =
+                response.data.data[
+                Math.floor(Math.random() * response.data.data.length)
+                ];
+
+            music.id = randomMusic.id
+            music.photo = randomMusic.album.cover_big
+            music.name = randomMusic.album.title
+            music.artist = randomMusic.artist.name
+            music.preview = randomMusic.preview
+
+            commit('setMusic', music)
+        })
     },
     genres({ commit }) {
         return this.$axios

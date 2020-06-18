@@ -3,7 +3,7 @@
     <div class="navbar-brand">
       <router-link :to="{ name: 'index' }" tag="a" class="navbar-item">
         <img src="/favicon.ico" />
-        <span style="margin-left: 10px" class="is-size-4 has-text-link" tag="h4">Random Advisor</span>
+        <span style="margin-left: 10px" class="is-size-4 has-text-link" tag="h4">Random Advicer</span>
       </router-link>
 
       <a

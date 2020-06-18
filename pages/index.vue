@@ -5,6 +5,9 @@
         <app-switch v-model="filters.movie" :checked="filters.movie">Movie</app-switch>
       </div>
       <div id="middle-switch" class="column has-text-centered">
+        <app-switch v-model="filters.music" :checked="filters.music">Music</app-switch>
+      </div>
+      <div id="middle-switch-2" class="column has-text-centered">
         <app-switch v-model="filters.book" :checked="filters.book">Book</app-switch>
       </div>
       <div class="column">
@@ -29,6 +32,9 @@
     <div v-if="adviced" class="columns is-multiline is-centered">
       <div v-if="filters.movie && $store.getters['advice/getMovie']" class="column is-one-third">
         <Card type="movie" :data="$store.getters['advice/getMovie']" />
+      </div>
+      <div v-if="filters.music && $store.getters['advice/getMusic']" class="column is-one-third">
+        <Card type="music" :data="$store.getters['advice/getMusic']" />
       </div>
       <div v-if="filters.book && $store.getters['advice/getBook']" class="column is-one-third">
         <Card type="book" :data="$store.getters['advice/getBook']" />
@@ -58,6 +64,7 @@ export default {
       adviced: false,
       filters: {
         movie: true,
+        music: true,
         book: true,
         tvSeries: true
       }
@@ -70,14 +77,19 @@ export default {
           .dispatch("advice/movieAdvice")
           .then(() => (this.adviced = true));
       }
-      if (this.filters.tvSeries) {
+      if (this.filters.music) {
         this.$store
-          .dispatch("advice/tvSeriesAdvice")
+          .dispatch("advice/musicAdvice")
           .then(() => (this.adviced = true));
       }
       if (this.filters.book) {
         this.$store
           .dispatch("advice/bookAdvice")
+          .then(() => (this.adviced = true));
+      }
+      if (this.filters.tvSeries) {
+        this.$store
+          .dispatch("advice/tvSeriesAdvice")
           .then(() => (this.adviced = true));
       }
     }

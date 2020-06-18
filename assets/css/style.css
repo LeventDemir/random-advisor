@@ -22,17 +22,18 @@ i {
     #middle-switch.has-text-centered {
         text-align: left !important;
     }
+    #middle-switch-2.has-text-centered {
+        text-align: left !important;
+    }
 }
 
 .text-collapsible {
     max-height: 76px;
-    min-height: 76px;
     overflow: hidden;
 }
 
 .text-collapsible-active {
     height: 100%;
-    min-height: 76px;
     overflow: hidden;
 }
 
