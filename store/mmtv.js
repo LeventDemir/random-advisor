@@ -1,9 +1,9 @@
 export const state = () => ({
-    movies: [],
-    Books: [],
-    tvSeries: [],
-    games: [],
-    musics: []
+    movies: null,
+    Books: null,
+    tvSeries: null,
+    games: null,
+    musics: null
 })
 
 export const getters = {

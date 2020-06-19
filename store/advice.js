@@ -8,7 +8,7 @@ const page = (number) => {
 };
 
 export const state = () => ({
-    genres: [],
+    genres: null,
     movie: null,
     book: null,
     tvSeries: null,

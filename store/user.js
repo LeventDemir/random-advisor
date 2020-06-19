@@ -84,6 +84,14 @@ export const actions = {
                     commit('mmtv/setMovies', null, { root: true })
                     commit('mmtv/setBooks', null, { root: true })
                     commit('mmtv/setTVSeries', null, { root: true })
+                    commit('mmtv/setGames', null, { root: true })
+                    commit('mmtv/setMusics', null, { root: true })
+
+                    commit('advice/setMovie', null, { root: true })
+                    commit('advice/setBook', null, { root: true })
+                    commit('advice/setTVSeries', null, { root: true })
+                    commit('advice/setGame', null, { root: true })
+                    commit('advice/setMusic', null, { root: true })
 
                     // send success notification
                     this.$toast.global.success("Logged out")

@@ -113,6 +113,13 @@ export default {
           .then(() => (this.adviced = true));
       }
     }
+  },
+  beforeDestroy() {
+    this.$store.commit("advice/setMovie", null);
+    this.$store.commit("advice/setBook", null);
+    this.$store.commit("advice/setTVSeries", null);
+    this.$store.commit("advice/setGame", null);
+    this.$store.commit("advice/setMusic", null);
   }
 };
 </script>

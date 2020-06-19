@@ -35,7 +35,7 @@
             {{ platform }}
             <span
               v-if="data.platforms.length -1 != index"
-              class="has-text-grey"
+              class="has-text-info"
             >,&nbsp;</span>
           </span>
         </p>
