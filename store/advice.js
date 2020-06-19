@@ -3,16 +3,17 @@ const moviedb_base_url = 'https://api.themoviedb.org/3'
 const moviedb_poster_path = 'https://image.tmdb.org/t/p/original/'
 const moviedb_api_key = '476c67076b8ad352fa3f0997042f266a'
 
-const page = () => {
-    return Math.floor(Math.random() * 500) + 1;
+const page = (number) => {
+    return Math.floor(Math.random() * number) + 1;
 };
 
 export const state = () => ({
     genres: [],
     movie: null,
-    music: null,
     book: null,
-    tvSeries: null
+    tvSeries: null,
+    game: null,
+    music: null
 })
 
 export const getters = {
@@ -22,14 +23,17 @@ export const getters = {
     getMovie(state) {
         return state.movie
     },
-    getMusic(state) {
-        return state.music
-    },
     getBook(state) {
         return state.book
     },
     getTVSeries(state) {
         return state.tvSeries
+    },
+    getGame(state) {
+        return state.game
+    },
+    getMusic(state) {
+        return state.music
     }
 }
 
@@ -40,20 +44,28 @@ export const mutations = {
     setMovie(state, movie) {
         state.movie = movie
     },
-    setMusic(state, music) {
-        state.music = music
-    },
     setBook(state, book) {
         state.book = book
     },
     setTVSeries(state, tvSeries) {
         state.tvSeries = tvSeries
+    },
+    setGame(state, game) {
+        state.game = game
+    },
+    setMusic(state, music) {
+        state.music = music
     }
 }
 
 export const actions = {
+    genres({ commit }) {
+        return this.$axios
+            .get(`${moviedb_base_url}/genre/movie/list?api_key=${moviedb_api_key}&language=en-US`)
+            .then(response => commit('setGenres', response.data.genres));
+    },
     movieAdvice({ getters, commit }) {
-        const discover = `${moviedb_base_url}/discover/movie?api_key=${moviedb_api_key}&page=${page()}`;
+        const discover = `${moviedb_base_url}/discover/movie?api_key=${moviedb_api_key}&page=${page(500)}`;
 
         return this.$axios.get(discover).then(response => {
             const movie =
@@ -75,8 +87,29 @@ export const actions = {
             commit('setMovie', movie)
         });
     },
+    bookAdvice({ commit }) {
+        this.$axios.get(`https://www.googleapis.com/books/v1/volumes?q=${randomWords()}`)
+            .then(response => {
+                const book = {}
+                const randomBook =
+                    response.data.items[
+                    Math.floor(Math.random() * response.data.items.length)
+                    ];
+
+                book.id = randomBook.id
+                book.photo = randomBook.volumeInfo.imageLinks.thumbnail
+                book.name = randomBook.volumeInfo.title
+                book.authors = randomBook.volumeInfo.authors
+                book.genres = randomBook.volumeInfo.categories
+                book.overview = randomBook.volumeInfo.description || 'there is no description of this book'
+                book.release_date = randomBook.volumeInfo.publishedDate
+                book.vote_average = randomBook.volumeInfo.averageRating
+
+                commit('setBook', book)
+            })
+    },
     tvSeriesAdvice({ getters, commit }) {
-        const discover = `${moviedb_base_url}/discover/tv?api_key=${moviedb_api_key}&page=${page()}`;
+        const discover = `${moviedb_base_url}/discover/tv?api_key=${moviedb_api_key}&page=${page(500)}`;
 
         return this.$axios.get(discover).then(response => {
             const tv =
@@ -97,25 +130,27 @@ export const actions = {
             commit('setTVSeries', tv)
         });
     },
-    bookAdvice({ commit }) {
-        this.$axios.get(`https://www.googleapis.com/books/v1/volumes?q=${randomWords()}`)
+    gameAdvice({ commit }) {
+        this.$axios.get(`https://api.rawg.io/api/games?page_size=1&page=${page(40600)}`)
             .then(response => {
-                const book = {}
-                const randomBook =
-                    response.data.items[
-                    Math.floor(Math.random() * response.data.items.length)
-                    ];
+                const game = {}
+                const randomGame = response.data.results[0]
 
-                book.id = randomBook.id
-                book.photo = randomBook.volumeInfo.imageLinks.thumbnail
-                book.name = randomBook.volumeInfo.title
-                book.authors = randomBook.volumeInfo.authors
-                book.genres = randomBook.volumeInfo.categories
-                book.overview = randomBook.volumeInfo.description || 'there is no description of this book'
-                book.release_date = randomBook.volumeInfo.publishedDate
-                book.vote_average = randomBook.volumeInfo.averageRating
 
-                commit('setBook', book)
+                game.id = randomGame.id
+                game.photo = randomGame.background_image
+                game.name = randomGame.name
+                game.genres = []
+                game.release_date = randomGame.released
+                game.vote_average = randomGame.rating
+                game.platforms = []
+                game.stores = []
+
+                randomGame.platforms.map(platform => game.platforms.push(platform.platform.name))
+                randomGame.stores.map(store => game.stores.push(store.store.name))
+                randomGame.genres.map(genre => game.genres.push(genre.name))
+
+                commit('setGame', game)
             })
     },
     musicAdvice({ commit }) {
@@ -143,10 +178,5 @@ export const actions = {
 
             commit('setMusic', music)
         })
-    },
-    genres({ commit }) {
-        return this.$axios
-            .get(`${moviedb_base_url}/genre/movie/list?api_key=${moviedb_api_key}&language=en-US`)
-            .then(response => commit('setGenres', response.data.genres));
     }
 }

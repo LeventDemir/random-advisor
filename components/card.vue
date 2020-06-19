@@ -16,7 +16,7 @@
             </span>
           </p>
           <p v-else-if="type == 'music'" class="subtitle is-6 has-text-grey">{{ data.artist }}</p>
-          <p v-else class="subtitle is-6 has-text-grey">{{ data.original_name }}</p>
+          <p v-else-if="type != 'game'" class="subtitle is-6 has-text-grey">{{ data.original_name }}</p>
         </div>
       </div>
 
@@ -28,10 +28,27 @@
           </span>
         </p>
 
-        <audio v-if="type == 'music'" controls :src="data.preview"></audio>
+        <audio style="width: 100%" v-if="type == 'music'" controls :src="data.preview"></audio>
+
+        <p v-if="type == 'game'">
+          <span v-for="(platform, index) in data.platforms" :key="platform" class="has-text-link">
+            {{ platform }}
+            <span
+              v-if="data.platforms.length -1 != index"
+              class="has-text-grey"
+            >,&nbsp;</span>
+          </span>
+        </p>
+
+        <p v-if="type == 'game'">
+          <span v-for="(store, index) in data.stores" :key="store" class="has-text-danger">
+            {{ store }}
+            <span v-if="data.stores.length -1 != index" class="has-text-grey">,&nbsp;</span>
+          </span>
+        </p>
 
         <p
-          v-if="type != 'music'"
+          v-if="type != 'music' && type != 'game'"
           :class="collapsible ? 'text-collapsible-active' : 'text-collapsible'"
         >
           <span @click="collapsible = !collapsible" class="icon has-text-link is-pulled-right">
