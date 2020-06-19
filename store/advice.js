@@ -77,6 +77,7 @@ export const actions = {
             movie.photo = movie.poster_path ? `${moviedb_poster_path}${movie.poster_path}` : '/no-photo.png'
             movie.name = movie.title
             movie.original_name = movie.original_title
+            movie.overview = movie.overview || 'This movie has no description so I have to add this line or it looks bad'
 
             getters['getGenres'].map(genre => {
                 movie.genre_ids.map(movie_genre => {
@@ -97,11 +98,11 @@ export const actions = {
                     ];
 
                 book.id = randomBook.id
-                book.photo = randomBook.volumeInfo.imageLinks.thumbnail
+                book.photo = randomBook.volumeInfo.imageLinks.thumbnail || '/no-photo.png'
                 book.name = randomBook.volumeInfo.title
                 book.authors = randomBook.volumeInfo.authors
                 book.genres = randomBook.volumeInfo.categories
-                book.overview = randomBook.volumeInfo.description || 'there is no description of this book'
+                book.overview = randomBook.volumeInfo.description || 'This book has no description so I have to add this line or it looks bad'
                 book.release_date = randomBook.volumeInfo.publishedDate
                 book.vote_average = randomBook.volumeInfo.averageRating
 
@@ -120,6 +121,7 @@ export const actions = {
             tv.genres = [];
             tv.photo = tv.poster_path ? `${moviedb_poster_path}${tv.poster_path}` : '/no-photo.png'
             tv.release_date = tv.first_air_date
+            tv.overview = tv.overview || 'This tv series has no description so I have to add this line or it looks bad'
 
             getters['getGenres'].map(genre => {
                 tv.genre_ids.map(tv_genre => {
@@ -136,9 +138,8 @@ export const actions = {
                 const game = {}
                 const randomGame = response.data.results[0]
 
-
                 game.id = randomGame.id
-                game.photo = randomGame.background_image
+                game.photo = randomGame.background_image || '/no-photo.png'
                 game.name = randomGame.name
                 game.genres = []
                 game.release_date = randomGame.released
@@ -171,7 +172,7 @@ export const actions = {
                 ];
 
             music.id = randomMusic.id
-            music.photo = randomMusic.album.cover_big
+            music.photo = randomMusic.album.cover_big || '/no-photo.png'
             music.name = randomMusic.album.title
             music.artist = randomMusic.artist.name
             music.preview = randomMusic.preview

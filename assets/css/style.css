@@ -16,13 +16,10 @@ i {
 }
 
 @media screen and (max-width: 768px) {
-    #right-switch.is-pulled-right {
+    .is-switch .is-pulled-right {
         float: left !important;
     }
-    #middle-switch.has-text-centered {
-        text-align: left !important;
-    }
-    #middle-switch-2.has-text-centered {
+    .is-switch .has-text-centered {
         text-align: left !important;
     }
 }

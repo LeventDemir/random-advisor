@@ -1,11 +1,11 @@
 <template>
   <div class="column">
-    <div class="columns">
+    <div class="columns is-switch">
       <div class="column">
         <app-switch v-model="filters.movie" :checked="filters.movie">Movie</app-switch>
       </div>
 
-      <div id="middle-switch-2" class="column has-text-centered">
+      <div class="column has-text-centered">
         <app-switch v-model="filters.book" :checked="filters.book">Book</app-switch>
       </div>
 
@@ -13,17 +13,12 @@
         <app-switch :checked="filters.tvSeries" v-model="filters.tvSeries">TV Series</app-switch>
       </div>
 
-      <div id="middle-switch" class="column has-text-centered">
+      <div class="column has-text-centered">
         <app-switch v-model="filters.game" :checked="filters.game">Game</app-switch>
       </div>
 
       <div class="column">
-        <app-switch
-          id="right-switch"
-          class="is-pulled-right"
-          :checked="filters.music"
-          v-model="filters.music"
-        >Music</app-switch>
+        <app-switch class="is-pulled-right" :checked="filters.music" v-model="filters.music">Music</app-switch>
       </div>
     </div>
 
