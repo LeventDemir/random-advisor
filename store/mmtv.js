@@ -3,7 +3,8 @@ export const state = () => ({
     Books: null,
     tvSeries: null,
     games: null,
-    musics: null
+    musics: null,
+    youtubes: null
 })
 
 export const getters = {
@@ -21,6 +22,9 @@ export const getters = {
     },
     getMusics(state) {
         return state.musics
+    },
+    getYoutubes(state) {
+        return state.youtubes
     }
 }
 
@@ -39,6 +43,9 @@ export const mutations = {
     },
     setMusics(state, musics) {
         state.musics = musics
+    },
+    setYoutubes(state, youtubes) {
+        state.youtubes = youtubes
     }
 }
 
@@ -77,6 +84,7 @@ export const actions = {
                     const tvSeries = []
                     const games = []
                     const musics = []
+                    const youtubes = []
 
                     response.data.mmtvs.map(mmtv => {
                         if (mmtv.type == 'movie') movies.push(mmtv)
@@ -84,6 +92,7 @@ export const actions = {
                         if (mmtv.type == 'tv-series') tvSeries.push(mmtv)
                         if (mmtv.type == 'game') games.push(mmtv)
                         if (mmtv.type == 'music') musics.push(mmtv)
+                        if (mmtv.type == 'youtube') youtubes.push(mmtv)
                     })
 
                     commit('setMovies', movies)
@@ -91,6 +100,7 @@ export const actions = {
                     commit('setTVSeries', tvSeries)
                     commit('setGames', games)
                     commit('setMusics', musics)
+                    commit('setYoutubes', youtubes)
                 }
             })
     }

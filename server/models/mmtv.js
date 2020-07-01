@@ -46,6 +46,15 @@ const mmtv = new mongoose.Schema({
     },
     vote_average: {
         type: String
+    },
+    views: {
+        type: String
+    },
+    like: {
+        type: String
+    },
+    dislike: {
+        type: String
     }
 })
 

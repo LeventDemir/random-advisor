@@ -1,7 +1,15 @@
 <template>
   <div class="card">
     <div class="card-image">
-      <figure class="image is-4by3">
+      <iframe
+        allowfullscreen
+        style="width:100%;height:15em"
+        v-if="type == 'youtube'"
+        type="text/html"
+        :src="'http://www.youtube.com/embed/' + data.id"
+        frameborder="0"
+      />
+      <figure v-else class="image is-4by3">
         <img :style="type == 'book' ? {'object-fit': 'scale-down'} : ''" :src="data.photo" />
       </figure>
     </div>
@@ -48,7 +56,7 @@
         </p>
 
         <p
-          v-if="type != 'music' && type != 'game'"
+          v-if="type != 'music' && type != 'youtube' && type != 'game'"
           :class="collapsible ? 'text-collapsible-active' : 'text-collapsible'"
         >
           <span @click="collapsible = !collapsible" class="icon has-text-link is-pulled-right">
@@ -57,13 +65,34 @@
           {{ data.overview }}
         </p>
 
-        <p v-if="type != 'music'">
+        <p v-if="type != 'music' && type != 'youtube'">
           <span class="icon has-text-warning">
             <i class="far fa-star"></i>
           </span>
           <span class="has-text-grey">{{ data.vote_average }}</span>
 
           <time class="is-size-6 has-text-grey is-pulled-right">{{ data.release_date }}</time>
+        </p>
+
+        <p v-if=" type == 'youtube'">
+          <span class="icon has-text-warning">
+            <i class="far fa-eye"></i>
+          </span>
+          <span>{{ new Intl.NumberFormat( { maximumSignificantDigits: 3 }).format(data.views) }}</span>
+        </p>
+
+        <p v-if=" type == 'youtube'">
+          <span class="icon has-text-success">
+            <i class="far fa-thumbs-up"></i>
+          </span>
+          <span>{{ new Intl.NumberFormat( { maximumSignificantDigits: 3 }).format(data.like) }}</span>
+        </p>
+
+        <p v-if=" type == 'youtube'">
+          <span class="icon has-text-danger">
+            <i class="far fa-thumbs-down"></i>
+          </span>
+          <span>{{ new Intl.NumberFormat( { maximumSignificantDigits: 3 }).format(data.dislike) }}</span>
         </p>
       </div>
     </div>

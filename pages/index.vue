@@ -17,8 +17,16 @@
         <app-switch v-model="filters.game" :checked="filters.game">Game</app-switch>
       </div>
 
+      <div class="column has-text-centered">
+        <app-switch class :checked="filters.music" v-model="filters.music">Music</app-switch>
+      </div>
+
       <div class="column">
-        <app-switch class="is-pulled-right" :checked="filters.music" v-model="filters.music">Music</app-switch>
+        <app-switch
+          class="is-pulled-right"
+          :checked="filters.youtube"
+          v-model="filters.youtube"
+        >Youtube</app-switch>
       </div>
     </div>
 
@@ -54,6 +62,13 @@
       <div v-if="filters.music && $store.getters['advice/getMusic']" class="column is-one-third">
         <Card type="music" :data="$store.getters['advice/getMusic']" />
       </div>
+
+      <div
+        v-if="filters.youtube && $store.getters['advice/getYoutube']"
+        class="column is-one-third"
+      >
+        <Card type="youtube" :data="$store.getters['advice/getYoutube']" />
+      </div>
     </div>
   </div>
 </template>
@@ -73,10 +88,11 @@ export default {
       adviced: false,
       filters: {
         movie: true,
-        music: true,
         book: true,
         tvSeries: true,
-        game: true
+        game: true,
+        music: true,
+        youtube: true
       }
     };
   },
@@ -85,11 +101,6 @@ export default {
       if (this.filters.movie) {
         this.$store
           .dispatch("advice/movieAdvice")
-          .then(() => (this.adviced = true));
-      }
-      if (this.filters.music) {
-        this.$store
-          .dispatch("advice/musicAdvice")
           .then(() => (this.adviced = true));
       }
       if (this.filters.book) {
@@ -105,6 +116,16 @@ export default {
       if (this.filters.game) {
         this.$store
           .dispatch("advice/gameAdvice")
+          .then(() => (this.adviced = true));
+      }
+      if (this.filters.music) {
+        this.$store
+          .dispatch("advice/musicAdvice")
+          .then(() => (this.adviced = true));
+      }
+      if (this.filters.youtube) {
+        this.$store
+          .dispatch("advice/youtubeAdvice")
           .then(() => (this.adviced = true));
       }
     }

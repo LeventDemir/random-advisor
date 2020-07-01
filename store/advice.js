@@ -1,7 +1,7 @@
 const randomWords = require('random-words');
 const moviedb_base_url = 'https://api.themoviedb.org/3'
 const moviedb_poster_path = 'https://image.tmdb.org/t/p/original/'
-const moviedb_api_key = '476c67076b8ad352fa3f0997042f266a'
+const youtube_api_base_url = 'https://www.googleapis.com/youtube/v3'
 
 const page = (number) => {
     return Math.floor(Math.random() * number) + 1;
@@ -13,7 +13,8 @@ export const state = () => ({
     book: null,
     tvSeries: null,
     game: null,
-    music: null
+    music: null,
+    youtube: null
 })
 
 export const getters = {
@@ -34,6 +35,9 @@ export const getters = {
     },
     getMusic(state) {
         return state.music
+    },
+    getYoutube(state) {
+        return state.youtube
     }
 }
 
@@ -55,17 +59,20 @@ export const mutations = {
     },
     setMusic(state, music) {
         state.music = music
+    },
+    setYoutube(state, youtube) {
+        state.youtube = youtube
     }
 }
 
 export const actions = {
     genres({ commit }) {
         return this.$axios
-            .get(`${moviedb_base_url}/genre/movie/list?api_key=${moviedb_api_key}&language=en-US`)
+            .get(`${moviedb_base_url}/genre/movie/list?api_key=${process.env.MOVIEDB_API_KEY}&language=en-US`)
             .then(response => commit('setGenres', response.data.genres));
     },
     movieAdvice({ getters, commit }) {
-        const discover = `${moviedb_base_url}/discover/movie?api_key=${moviedb_api_key}&page=${page(500)}`;
+        const discover = `${moviedb_base_url}/discover/movie?api_key=${process.env.MOVIEDB_API_KEY}&page=${page(500)}`;
 
         return this.$axios.get(discover).then(response => {
             const movie =
@@ -110,7 +117,7 @@ export const actions = {
             })
     },
     tvSeriesAdvice({ getters, commit }) {
-        const discover = `${moviedb_base_url}/discover/tv?api_key=${moviedb_api_key}&page=${page(500)}`;
+        const discover = `${moviedb_base_url}/discover/tv?api_key=${process.env.MOVIEDB_API_KEY}&page=${page(500)}`;
 
         return this.$axios.get(discover).then(response => {
             const tv =
@@ -178,6 +185,28 @@ export const actions = {
             music.preview = randomMusic.preview
 
             commit('setMusic', music)
+        })
+    },
+    youtubeAdvice({ commit }) {
+        this.$axios.get(`${youtube_api_base_url}/search?q=${randomWords()}&maxResults=20&order=title&type=video&key=${process.env.YOUTUBE_API_KEY}`).then(response => {
+            const youtube = {}
+            const randomYoutube =
+                response.data.items[
+                Math.floor(Math.random() * response.data.items.length)
+                ];
+
+            this.$axios.get(`${youtube_api_base_url}/videos?id=${randomYoutube.id.videoId}&part=snippet&part=statistics&key=${process.env.YOUTUBE_API_KEY}`)
+                .then(response => {
+                    const details = response.data.items[0]
+
+                    youtube.id = randomYoutube.id.videoId
+                    youtube.name = details.snippet.title
+                    youtube.views = details.statistics.viewCount
+                    youtube.like = details.statistics.likeCount
+                    youtube.dislike = details.statistics.dislikeCount
+
+                    commit('setYoutube', youtube)
+                })
         })
     }
 }

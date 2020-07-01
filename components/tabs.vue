@@ -65,6 +65,19 @@
           <span>Music</span>
         </a>
       </router-link>
+
+      <router-link
+        :to="{ name: 'lists', query: { list: 'youtube' } }"
+        :class="{  'is-active': $route.query.list == 'youtube' }"
+        tag="li"
+      >
+        <a>
+          <span class="icon is-small">
+            <i class="fab fa-youtube" aria-hidden="true"></i>
+          </span>
+          <span>Youtube</span>
+        </a>
+      </router-link>
     </ul>
   </div>
 </template>
