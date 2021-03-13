@@ -166,7 +166,7 @@ export const actions = {
             "headers": {
                 "content-type": "application/octet-stream",
                 "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-                "x-rapidapi-key": "d4a5c04d95mshfb369df99730873p1a72fajsn73b95fc2946b",
+                "x-rapidapi-key": process.env.DEEZER_API_KEY,
                 "useQueryString": true
             }, "params": {
                 "q": randomWords()

@@ -112,7 +112,8 @@ export default {
 
   env:{
     MOVIEDB_API_KEY: process.env.MOVIEDB_API_KEY,
-    YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY
+    YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY,
+    DEEZER_API_KEY: process.env.DEEZER_API_KEY
   },
   /*
   ** Build configuration
