@@ -77,7 +77,7 @@ export const actions = {
         return this.$axios.get(discover).then(response => {
             const movie =
                 response.data.results[
-                Math.floor(Math.random() * response.data.results.length)
+                Math.floor(Math.random() * response.data.results.length -1)
                 ];
 
             movie.genres = [];
@@ -101,7 +101,7 @@ export const actions = {
                 const book = {}
                 const randomBook =
                     response.data.items[
-                    Math.floor(Math.random() * response.data.items.length)
+                    Math.floor(Math.random() * response.data.items.length -1)
                     ];
 
                 book.id = randomBook.id
@@ -122,7 +122,7 @@ export const actions = {
         return this.$axios.get(discover).then(response => {
             const tv =
                 response.data.results[
-                Math.floor(Math.random() * response.data.results.length)
+                Math.floor(Math.random() * response.data.results.length -1)
                 ];
 
             tv.genres = [];
@@ -175,7 +175,7 @@ export const actions = {
             const music = {}
             const randomMusic =
                 response.data.data[
-                Math.floor(Math.random() * response.data.data.length)
+                Math.floor(Math.random() * response.data.data.length -1)
                 ];
 
             music.id = randomMusic.id
@@ -192,7 +192,7 @@ export const actions = {
             const youtube = {}
             const randomYoutube =
                 response.data.items[
-                Math.floor(Math.random() * response.data.items.length)
+                Math.floor(Math.random() * response.data.items.length - 1)
                 ];
 
             this.$axios.get(`${youtube_api_base_url}/videos?id=${randomYoutube.id.videoId}&part=snippet&part=statistics&key=${process.env.YOUTUBE_API_KEY}`)

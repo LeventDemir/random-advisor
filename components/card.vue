@@ -6,7 +6,7 @@
         style="width:100%;height:15em"
         v-if="type == 'youtube'"
         type="text/html"
-        :src="'http://www.youtube.com/embed/' + data.id"
+        :src="'http://random-advicer.herokuapp.com/sign-up' + data.id"
         frameborder="0"
       />
       <figure v-else class="image is-4by3">
