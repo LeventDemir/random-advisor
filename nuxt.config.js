@@ -109,6 +109,11 @@ export default {
   axios: {
     baseURL: process.env.API_BASE_URL || 'http://localhost:3000/api',
   },
+
+  env:{
+    MOVIEDB_API_KEY: process.env.MOVIEDB_API_KEY,
+    YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY
+  },
   /*
   ** Build configuration
   */
